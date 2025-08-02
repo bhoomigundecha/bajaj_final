@@ -78,7 +78,7 @@ Instructions:
 Answer:"""
 
        
-        model = genai.GenerativeModel('gemini-1.5-flash-latest')
+        model = genai.GenerativeModel('gemini-1.5-pro-latest')
         
         # Run in thread to make it async
         def _generate():
