@@ -2,6 +2,7 @@ fastapi
 uvicorn
 python-docx
 PyMuPDF
+pdfplumber
 requests
 openai
 pinecone
