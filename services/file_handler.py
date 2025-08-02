@@ -13,7 +13,7 @@ def fetch_and_extract_text(file_url: str) -> str:
 
         content_type = response.headers.get("content-type", "").lower()
         _, temp_path = tempfile.mkstemp()
-
+        os.close(_)
         with open(temp_path, "wb") as f:
             f.write(response.content)
 
@@ -36,9 +36,37 @@ def fetch_and_extract_text(file_url: str) -> str:
 
 def extract_pdf(path: str) -> str:
     try:
+        # if it creates problem use the commented code
         with pdfplumber.open(path) as pdf:
             return "\n".join(page.extract_text() or "" for page in pdf.pages)
+        # print(f"Opening PDF: {path}")
+        # with pdfplumber.open(path) as pdf:
+        #     # print(f"PDF has {len(pdf.pages)} pages")
+        #     texts = []
+        #     for i, page in enumerate(pdf.pages):
+        #         try:
+        #             # print(f"Extracting page {i+1}...")
+        #             text = page.extract_text()
+        #             # print(f"Page {i+1} text length: {len(text) if text else 0}")
+        #             if text and text.strip():
+        #                 texts.append(text.strip())
+        #                 # print(f"Page {i+1} text added")
+        #             else:
+        #                 print(f"Page {i+1} has no extractable text")
+        #         except Exception as page_error:
+        #             print(f"Error extracting page {i+1}: {page_error}")
+        #             continue
+            
+        #     # print(f"Total pages with text: {len(texts)}")
+        #     if not texts:
+        #         raise Exception("No text could be extracted from any page")
+            
+        #     # print("Joining texts...")
+        #     result = "\n\n".join(texts)
+        #     # print(f"PDF extraction complete. Total length: {len(result)}")
+        #     return result
     except Exception as e:
+        print(f"PDF extraction failed: {e}")
         raise Exception(f"pdf: {e}")
 
 def extract_docx(path: str) -> str:

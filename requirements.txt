@@ -6,3 +6,4 @@ requests
 openai
 pinecone
 python-dotenv
+google-generativeai
